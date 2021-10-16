@@ -1,0 +1,41 @@
+{% extends 'myadmin/base.html' %}
+
+{% block title %}Admin Panel{% endblock %}
+
+{% block content %}
+    <div class="row p-3">
+        <div class="row d-flex justify-content-evenly">
+            <div class="col-6">
+                <h1>Admin Panel</h1>
+            </div>
+            <div class="col-3">
+                <a href="{% url 'myadmin:add_product' %}"><button class="btn btn-primary">add product</button></a>
+            </div>
+            <div class="col-3">
+                <a href="{% url 'myadmin:logout_page' %}"><button class="btn btn-danger">logout</button></a>
+            </div>
+        </div>
+        <div class="row gx-5">
+            {% for x in order1 %}
+                <div class="p-3 border bg-light mt-2">
+                    <div><h3>{{ x.created }}</h3></div>
+                    <div>Пользователь {{ x.customer }}</div>
+                    <div>{% for y in x.customer_order %}</div>
+                        <div>{{ y }}</div>
+                    <div>{% endfor %}</div>
+                    <div>Общая сумма {{ x.get_total_price }} сум</div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="row mt-5 p-5">
+
+        </div>
+    </div>
+{% endblock %}
+
+
+
+
+
+
+

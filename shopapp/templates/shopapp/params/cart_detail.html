@@ -1,0 +1,39 @@
+{% extends 'shopapp/base.html' %}
+{% load cart %}
+{% block title %}Cart{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="row">
+            {% for item in items %}
+            <div class="row justify-content-evenly align-items-center mt-2 p-2">
+                <div class="col">{{ item.name }}</div>
+                <div class="col">
+                    <img src="{{ item.image }}" alt="{{ item.name }}" width="200" height="200" class="img-thumbnail">
+                </div>
+                <div class="col">сумма {{ item.price }} сум</div>
+                <div class="col row justify-content-center align-items-center">
+                    <a href="{% url 'shopapp:item_increment' item.id %}"><button class="btn btn-success">+</button></a>
+                    <div class="">количество x{{ item.quantity }}</div>
+                    <a href="{% url 'shopapp:item_decrement' item.id %}"><button class="btn btn-success">-</button></a>
+                </div>
+                <div class="col">{{ item.price|summary:item.quantity }} сум</div>
+                <div class="col"><a href="{% url 'shopapp:item_remove' item.id %}"><button class="btn btn-danger">Delete</button></a></div>
+            </div>
+            {% endfor %}
+        </div>
+        {% if request.session.cart %}
+            <div class="card text-end mt-3 p-2">
+                <div class="col-10"><h3>Тотал сумма <span class="badge bg-success p-3 outline">{{ total_price }}</span> сум</h3></div>
+            </div>
+            <div class="row justify-content-between mt-3 p-2">
+                <a class="col-2" href="{% url 'shopapp:cart_clear' %}"><button class="btn btn-danger">Очистить Корзину</button></a>
+                <a class="col-2" href="{% url 'shopapp:checkout' %}"><button class="btn btn-warning">Оформить заказ</button></a>
+            </div>
+        {% else %}
+            <div class="row justify-content-center align-items-center mt-5">
+                <h3 class="col-3">Корзина пуста</h3>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'shopapp/base.html' %}
+{% load cart %}
+{% block title %}Order{% endblock %}
+
+{% block content %}
+    <div class="row">
+        {% if 'customer' in request.session %}
+            <div class="row col-6 mt-4 p-3">
+                <form action="{% url 'shopapp:ordering' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="text" class="form-control" name="customer" value="{{ user_obj.username }}" >
+                    <input type="text" class="form-control mt-3" name="first_name" value="{{ user_obj.first_name }}" >
+                    <input type="text" class="form-control mt-3" name="last_name" value="{{ user_obj.last_name }}" >
+                    <input type="email" class="form-control mt-3" name="email" value="{{ user_obj.email }}" >
+                    <input type="number" class="form-control mt-3" name="phone" value="{{ user_obj.phone }}" >
+                    <textarea name="address" class="form-control mt-3" cols="30" rows="10" >{{ user_obj.address }}</textarea>
+                    <button type="submit" class="btn btn-success mt-3">Отправить</button>
+                </form>
+            </div>
+            <div class="row col-6 mt-4 p-3">
+                <div class="card row justify-content-start p-4">
+                    <div class="col"><h3>Ваша покупка</h3></div>
+                    {% for item in items %}
+                        <div class="col row justify-content-evenly">
+                            <div class="col">{{ item.name }}</div>
+                            <div class="col">{{ item.price }} сум</div>
+                            <div class="col">x{{ item.quantity }}</div>
+                            <div class="col">{{ item.price|summary:item.quantity }} сум</div>
+                        </div>
+                    {% endfor %}
+                    <div class="col row">
+                        <div><h3>Общая сумма {{ total_price }} сум</h3></div>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="row col-6 mt-4 p-3">
+                <div><h3>Registratsiya</h3></div>
+                <a href="{% url 'shopapp:sign_up' %}"><button class="btn btn-success">регистрация</button></a>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

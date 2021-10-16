@@ -1,0 +1,64 @@
+{% extends 'shopapp/base.html' %}
+{%block title%}Homepage{% endblock %}
+
+{% block content %}
+    <div class="row p-3 justify-content-center">
+        {% for category in categories %}
+            <div class="col-1 d-flex justify-content-center">
+                <a href="{{ category.get_absolute_url }}">
+                    <button class="btn btn-outline-primary">{{ category.name }}</button>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="row p-2 d-flex justify-content-evenly">
+        {% for product in pages %}
+            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-5 col-sm-8 col-8 border bg-light p-2 m-2 d-flex flex-column align-items-center">
+                <div class="col">
+                    <img src="{{ product.image.url }}" alt="{{ item.name }}" width="200" height="200" class="img-thumbnail">
+                </div>
+                <div class="col">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <h5 class="cart-title">{{ product.price }} сум</h5>
+                    <a href="{{ product.get_absolute_url }}"><button class="btn btn-warning">detail</button></a>
+                    <div>
+                        <a href="{% url 'shopapp:item_add' product.id %}"><button class="btn btn-success mt-2">add cart</button></a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="row col d-flex justify-content-center align-items-center mt-5">
+        <div class="row col-2 d-flex justify-content-center align-items-center">
+            {% if pages.has_previous %}
+                <div class="col">
+                    <a href="?page={{ pages.previous_page_number }}">
+                        <button class="btn btn-primary">{{ pages.previous_page_number }}</button>
+                    </a>
+                </div>
+            {% endif %}
+                <div class="col">
+                    <a href=""><button class="btn btn-success">{{ pages.number }}</button></a>
+                </div>
+
+            {% if pages.has_next %}
+                <div class="col">
+                    <a href="?page={{ pages.next_page_number }}">
+                        <button class="btn btn-primary">{{ pages.next_page_number }}</button>
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <style>
+
+    </style>
+
+{% endblock %}
+
+
+
+
+

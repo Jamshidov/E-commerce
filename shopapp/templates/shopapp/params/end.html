@@ -1,0 +1,20 @@
+{% extends 'shopapp/base.html' %}
+
+{% block content %}
+    <div class="row">
+        <div>Ваши заказы</div>
+        {% for item in orders %}
+            {% if item.completed %}
+
+            {% else %}
+                {% if item.confirmation %}
+                    <div>Ваш заказ подтвержден</div>
+                    <div>ID заказа {{ item.id }}</div>
+                {% else %}
+                    <div><h3>Ваш заказ отправлен успешно !</h3></div>
+                    <div>Ваш заказ на обработке, подождите пожалуйста</div>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends 'shopapp/base.html' %}
+{% block title %}Sign Up{% endblock %}
+
+{% block content %}
+    <div class="row col-6 p-4" id="signup_block">
+        <form action="{% url 'shopapp:sign_up' %}" method="POST">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="FormInput1" class="form-label">Login</label>
+                <input class="form-control" id="FormInput1" type="text" name="username">
+            </div>
+            <div class="mb-3">
+                <label for="FormInput2" class="form-label">First Name</label>
+                <input class="form-control" id="FormInput2" type="text" name="first_name">
+            </div>
+            <div class="mb-3">
+                <label for="FormInput3" class="form-label">Last Name</label>
+                <input class="form-control" id="FormInput3" type="text" name="last_name">
+            </div>
+            <div class="mb-3">
+                <label for="FormInput4" class="form-label">Email</label>
+                <input class="form-control" id="FormInput4" type="email" name="email">
+            </div>
+            <div class="mb-3">
+                <label for="FormInput5" class="form-label">Phone number</label>
+                <div class="input-group">
+                    <span class="input-group-text" id="basic-addon1">+998</span>
+                    <input class="form-control" id="FormInput5" aria-label="Username" aria-describedby="basic-addon1" type="number" name="phone">
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="FormInput6" class="form-label">Address</label>
+                <textarea class="form-control" id="FormInput6" name="address" id="" cols="30" rows="10"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="FormInput7" class="form-label">Password</label>
+                <input class="form-control" id="FormInput7" type="password" name="password1">
+            </div>
+            <div class="mb-3">
+                <label for="FormInput8" class="form-label">Confirm password</label>
+                <input class="form-control" id="FormInput8" type="password" name="password2">
+            </div>
+            <div class="d-grid">
+                <button class="btn btn-success btn-lg" type="submit">send</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="row" id="form_error">
+        {% for m in messages %}
+            <div class="alert alert-danger mt-3" role="alert">{{ m }}</div>
+        {% endfor %}
+    </div>
+{% endblock %}

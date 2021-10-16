@@ -1,0 +1,35 @@
+{% extends 'shopapp/base.html' %}
+
+{% block title %}User Profile{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col mt-3">
+            <h1>{{ username }} Profile</h1>
+        </div>
+        <div>
+            {% for item in items %}
+                ID: {{ item.id }}<br/>
+                FirstName: {{ item.first_name }}<br/>
+                LastName: {{ item.last_name }}<br/>
+                Email: {{ item.email }}<br/>
+                Phone: {{ item.phone }}<br/>
+                Address: {{ item.address }}<br/>
+            {% endfor %}
+        </div>
+        <hr/>
+        <div>
+            {% for ord in orders %}
+                Order: {{ ord.id }}<br/>
+                {% for i in ord.customer_order %}
+                    Products: {{ i }}<br/>
+                {% endfor %}
+                Total: {{ ord.get_total_price }} sum<br/>
+            {% endfor %}
+        </div>
+        <hr/>
+
+    </div>
+</div>
+{% endblock %}

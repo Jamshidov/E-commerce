@@ -1,0 +1,26 @@
+{% extends 'myadmin/base.html' %}
+
+{% block title %}Add Product{% endblock %}
+
+{% block content %}
+    <div class="row p-3 col d-flex flex-column">
+        <div class="col d-flex justify-content-evenly">
+            <div>
+                <h2>Добавить продукт</h2>
+            </div>
+            <div>
+                <a href="{% url 'myadmin:myadmin' %}"><button class="btn btn-success">назад</button></a>
+            </div>
+        </div>
+        <div class="col-6 mt-3">
+            <form action="{% url 'myadmin:add_product' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="btn btn-success" type="submit">Добавить</button>
+            </form>
+        </div>
+        <div class="col mt-5 p-4">
+
+        </div>
+    </div>
+{% endblock %}
